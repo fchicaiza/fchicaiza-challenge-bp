@@ -1,4 +1,7 @@
 import * as dotenv from "dotenv";
+import { DataSourceOptions, DataSource } from "typeorm";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { AppDataSource } from "./data.source";
 
 export abstract class ConfigServer {
   constructor() {
@@ -24,5 +27,9 @@ export abstract class ConfigServer {
       arrEnv.unshift(...strigToArray);
     }
     return "." + arrEnv.join(".");
+  }
+
+  get initConnect(): Promise<DataSource> {
+    return AppDataSource.initialize();
   }
 }

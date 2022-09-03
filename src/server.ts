@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { PersonRouter } from "./router/person.router";
 import { ConfigServer } from "./config/config";
+import { DataSource } from "typeorm";
 
 class ServerBootstrap extends ConfigServer {
   public app: express.Application = express();
@@ -11,6 +12,7 @@ class ServerBootstrap extends ConfigServer {
     super();
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.dbConnect();
     this.app.use(morgan("dev"));
     this.app.use(cors());
 
@@ -20,6 +22,16 @@ class ServerBootstrap extends ConfigServer {
 
   routers(): Array<express.Router> {
     return [new PersonRouter().router];
+  }
+
+  async dbConnect(): Promise<DataSource | void> {
+    return this.initConnect
+      .then(() => {
+        console.log("Connect Success");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   public listen() {
