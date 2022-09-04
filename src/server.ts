@@ -1,7 +1,8 @@
+import "reflect-metadata";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { PersonRouter } from "./router/person.router";
+import { PersonRouter } from "./persona/persona.router";
 import { ConfigServer } from "./config/config";
 import { DataSource } from "typeorm";
 
