@@ -1,10 +1,16 @@
-import { Column, Entity, PrimaryColumn, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ClienteEntity } from "../../cliente/entities/cliente.entity";
 
 @Entity({ name: "persona" })
 export class PersonaEntity extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id_persona!: number;
   @Column()
   nombre!: string;
@@ -19,6 +25,6 @@ export class PersonaEntity extends BaseEntity {
   @Column()
   telefono!: string;
 
-  @OneToMany(() => ClienteEntity, (cliente) => cliente.persona)
-  cliente!: ClienteEntity;
+  // @OneToMany(() => ClienteEntity, (cliente) => cliente.persona)
+  // cliente!: ClienteEntity;
 }

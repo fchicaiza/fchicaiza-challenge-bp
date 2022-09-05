@@ -1,11 +1,18 @@
-import { Column, Entity, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryColumn,
+  ManyToOne,
+  JoinColumn,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ClienteEntity } from "../../cliente/entities/cliente.entity";
 import { CuentaEntity } from "../../cuenta/entities/cuenta.entity";
 
 @Entity({ name: "movimientos" })
 export class MovimientosEntity extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id_movimiento!: number;
   @Column()
   fecha!: string;

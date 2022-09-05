@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
   JoinColumn,
@@ -12,7 +13,7 @@ import { MovimientosEntity } from "../../movimientos/entities/movimientos.entity
 
 @Entity({ name: "cuenta" })
 export class CuentaEntity extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id_cuenta!: number;
   @Column()
   numeroCuenta!: number;
