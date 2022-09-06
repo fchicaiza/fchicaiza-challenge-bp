@@ -3,28 +3,30 @@ import {
   Entity,
   PrimaryColumn,
   OneToMany,
+  TableInheritance,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
 import { ClienteEntity } from "../../cliente/entities/cliente.entity";
 
 @Entity({ name: "persona" })
-export class PersonaEntity extends BaseEntity {
+@TableInheritance({ column: { type: "varchar", name: "type" } })
+export abstract class PersonaEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id_persona!: number;
   @Column()
   nombre!: string;
-  @Column()
+  @Column({ length: 1 })
   genero!: string;
   @Column()
   edad!: number;
-  @Column()
+  @Column({ length: 13 })
   identificacion!: string;
-  @Column()
+  @Column({ length: 255 })
   direccion!: string;
-  @Column()
+  @Column({ length: 10 })
   telefono!: string;
 
-  // @OneToMany(() => ClienteEntity, (cliente) => cliente.persona)
-  // cliente!: ClienteEntity;
+  @OneToMany(() => ClienteEntity, (cliente) => cliente.persona)
+  cliente!: ClienteEntity;
 }
