@@ -6,7 +6,8 @@ export class PersonRouter extends BaseRouter<PersonaController> {
     super(PersonaController);
   }
   routes(): void {
-    this.router.get("/person", (req, res) =>
+    let endpoint = "/persona/";
+    this.router.get(endpoint + "getPersona", (req, res) =>
       this.contoller.getPerson(req, res)
     );
   }

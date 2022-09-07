@@ -1,18 +1,9 @@
-import {
-  Column,
-  Entity,
-  PrimaryColumn,
-  OneToMany,
-  TableInheritance,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { BaseEntity } from "../../config/base.entity";
+import { Column, ChildEntity } from "typeorm";
 import { ClienteEntity } from "../../cliente/entities/cliente.entity";
 
-@Entity({ name: "persona" })
-@TableInheritance({ column: { type: "varchar", name: "type" } })
-export abstract class PersonaEntity extends BaseEntity {
-  @PrimaryGeneratedColumn()
+@ChildEntity({ name: "persona" })
+export class PersonaEntity extends ClienteEntity {
+  @Column()
   id_persona!: number;
   @Column()
   nombre!: string;
@@ -26,7 +17,4 @@ export abstract class PersonaEntity extends BaseEntity {
   direccion!: string;
   @Column({ length: 10 })
   telefono!: string;
-
-  @OneToMany(() => ClienteEntity, (cliente) => cliente.persona)
-  cliente!: ClienteEntity;
 }
