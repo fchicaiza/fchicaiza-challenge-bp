@@ -10,8 +10,14 @@ export class ClienteService extends BaseService<ClienteEntity> {
   async findAllCustomers(): Promise<ClienteEntity[]> {
     return (await this.execRepository).find();
   }
+  // async findCustomerById(id_cliente: number): Promise<ClienteEntity | null> {
+  //   return (await this.execRepository).findOneBy({ id_cliente });
+  // }
   async findCustomerById(id_cliente: number): Promise<ClienteEntity | null> {
-    return (await this.execRepository).findOneBy({ id_cliente });
+    return (await this.execRepository)
+      .createQueryBuilder("cliente")
+      .where({ id_cliente })
+      .getOne();
   }
 
   async createCustomer(body: ClienteEntity): Promise<ClienteEntity> {
