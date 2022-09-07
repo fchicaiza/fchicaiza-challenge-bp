@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { PersonRouter } from "./persona/persona.router";
+import { ClienteRouter } from "./cliente/cliente.router";
 import { ConfigServer } from "./config/config";
 import { DataSource } from "typeorm";
 
@@ -17,12 +18,12 @@ class ServerBootstrap extends ConfigServer {
     this.app.use(morgan("dev"));
     this.app.use(cors());
 
-    this.app.use("/api", this.routers());
+    this.app.use("/", this.routers());
     this.listen();
   }
 
   routers(): Array<express.Router> {
-    return [new PersonRouter().router];
+    return [new PersonRouter().router, new ClienteRouter().router];
   }
 
   async dbConnect(): Promise<DataSource | void> {
