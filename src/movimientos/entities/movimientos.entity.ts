@@ -18,9 +18,9 @@ export class MovimientosEntity extends BaseEntity {
   fecha!: string;
   @Column()
   tipoMovimiento!: string;
-  @Column()
+  @Column("decimal", { precision: 10, scale: 2 })
   valor!: number;
-  @Column()
+  @Column("decimal", { precision: 10, scale: 2 })
   saldo!: string;
 
   @ManyToOne(() => CuentaEntity, (cuenta) => cuenta.movimientos)

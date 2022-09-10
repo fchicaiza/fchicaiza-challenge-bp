@@ -19,10 +19,10 @@ export class CuentaEntity extends BaseEntity {
   numeroCuenta!: number;
   @Column()
   tipoCuenta!: string;
-  @Column()
+  @Column("decimal", { precision: 10, scale: 2 })
   saldoInicial!: number;
-  @Column()
-  estado!: string;
+  @Column("char")
+  estado!: number;
 
   @ManyToOne(() => ClienteEntity, (cliente) => cliente.cuenta)
   @JoinColumn({ name: "id_cliente" })
