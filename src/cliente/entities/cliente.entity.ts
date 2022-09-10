@@ -15,8 +15,8 @@ import { PersonaEntity } from "../../persona/entities/persona.entity";
 
 // @ChildEntity({ name: "cliente" })
 @Entity({ name: "cliente" })
-@TableInheritance({ column: { type: "varchar", name: "type" } })
-export abstract class ClienteEntity extends BaseEntity {
+// @TableInheritance({ column: { type: "varchar", name: "type" } })
+export class ClienteEntity extends BaseEntity {
   // constructor() {
   //   super();
   // }
@@ -27,9 +27,9 @@ export abstract class ClienteEntity extends BaseEntity {
   @Column("char")
   estado!: string;
 
-  // @OneToOne(() => PersonaEntity, (persona) => persona.cliente)
-  // @JoinColumn({ name: "id_cliente" })
-  // persona!: PersonaEntity;
+  @OneToOne(() => PersonaEntity, (persona) => persona.cliente)
+  @JoinColumn({ name: "id_cliente" })
+  persona!: PersonaEntity;
 
   @OneToMany(() => CuentaEntity, (cuenta) => cuenta.cliente)
   cuenta!: CuentaEntity[];
