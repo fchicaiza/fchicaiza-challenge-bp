@@ -20,8 +20,8 @@ export class MovimientosEntity extends BaseEntity {
   valor!: number;
   @Column("decimal", { precision: 10, scale: 2 })
   saldo!: number;
-  // @Column()
-  // id_cuenta!: number;
+  @Column()
+  id_cuenta!: number;
 
   @ManyToOne(() => CuentaEntity, (cuenta) => cuenta.movimientos)
   @JoinColumn({ name: "id_cuenta" })

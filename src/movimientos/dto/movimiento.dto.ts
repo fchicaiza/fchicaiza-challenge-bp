@@ -13,5 +13,5 @@ export class MovimientosDTO extends BaseDTO {
   @IsNotEmpty()
   saldo!: number;
   @IsNotEmpty()
-  id_cliente!: number;
+  id_cuenta!: number;
 }

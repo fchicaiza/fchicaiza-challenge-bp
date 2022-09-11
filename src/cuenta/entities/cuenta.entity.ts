@@ -22,9 +22,16 @@ export class CuentaEntity extends BaseEntity {
   saldo_inicial!: number;
   @Column("char")
   estado!: string;
-  @JoinColumn()
+  @Column()
   id_cliente!: number;
 
-  @OneToMany(() => MovimientosEntity, (movimientos) => movimientos.cuenta)
+  @OneToMany(() => MovimientosEntity, (movimientos) => movimientos.cuenta, {
+    eager: true,
+    cascade: true,
+  })
   movimientos!: MovimientosEntity[];
+
+  @ManyToOne(() => ClienteEntity, (cliente) => cliente.cuenta)
+  @JoinColumn({ name: "id_cliente" })
+  cliente!: ClienteEntity;
 }

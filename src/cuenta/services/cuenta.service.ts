@@ -15,6 +15,7 @@ export class CuentaService extends BaseService<CuentaEntity> {
   }
 
   async createAccount(body: CuentaEntity): Promise<CuentaEntity> {
+    console.log(body);
     return (await this.execRepository).save(body);
   }
   async deleteAccount(id_cuenta: number): Promise<DeleteResult> {

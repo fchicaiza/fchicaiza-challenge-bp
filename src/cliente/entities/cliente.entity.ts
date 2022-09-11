@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
+import { CuentaEntity } from "../../cuenta/entities/cuenta.entity";
 
 import { PersonaEntity } from "../../persona/entities/persona.entity";
 
@@ -21,4 +23,10 @@ export class ClienteEntity extends BaseEntity {
   @OneToOne(() => PersonaEntity, (persona) => persona.cliente)
   @JoinColumn({ name: "id_cliente" })
   persona!: PersonaEntity;
+
+  @OneToMany(() => CuentaEntity, (cuenta) => cuenta.cliente, {
+    eager: true,
+    cascade: true,
+  })
+  cuenta!: CuentaEntity[];
 }
