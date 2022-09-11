@@ -3,10 +3,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ClienteEntity } from "../../cliente/entities/cliente.entity";
 import { BaseEntity } from "../../config/base.entity";
+import { MovimientosEntity } from "../../movimientos/entities/movimientos.entity";
 
 @Entity({ name: "cuenta" })
 export class CuentaEntity extends BaseEntity {
@@ -20,10 +22,9 @@ export class CuentaEntity extends BaseEntity {
   saldo_inicial!: number;
   @Column("char")
   estado!: string;
-  @Column()
+  @JoinColumn()
   id_cliente!: number;
 
-  // @ManyToOne(() => ClienteEntity, (cliente) => cliente.cuenta)
-  // @JoinColumn({ name: "id_cliente" })
-  // cliente!: ClienteEntity;
+  @OneToMany(() => MovimientosEntity, (movimientos) => movimientos.cuenta)
+  movimientos!: MovimientosEntity[];
 }

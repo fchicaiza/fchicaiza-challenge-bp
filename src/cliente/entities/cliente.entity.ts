@@ -4,10 +4,8 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
-  OneToMany,
 } from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
-import { CuentaEntity } from "../../cuenta/entities/cuenta.entity";
 
 import { PersonaEntity } from "../../persona/entities/persona.entity";
 

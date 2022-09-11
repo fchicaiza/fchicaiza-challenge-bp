@@ -1,5 +1,8 @@
 import { BaseDTO } from "../../config/base.dto";
 import { IsNotEmpty } from "class-validator";
+import { ManyToOne } from "typeorm";
+import { ClienteEntity } from "../../cliente/entities/cliente.entity";
+import { CuentaEntity } from "../entities/cuenta.entity";
 
 export class CuentaDTO extends BaseDTO {
   @IsNotEmpty()

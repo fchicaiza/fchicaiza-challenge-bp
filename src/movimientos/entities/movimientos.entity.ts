@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { BaseEntity } from "../../config/base.entity";
+import { CuentaEntity } from "../../cuenta/entities/cuenta.entity";
 
 @Entity({ name: "movimiento" })
 export class MovimientosEntity extends BaseEntity {
@@ -13,12 +20,10 @@ export class MovimientosEntity extends BaseEntity {
   valor!: number;
   @Column("decimal", { precision: 10, scale: 2 })
   saldo!: number;
-  @Column()
-  id_cuenta!: number;
+  // @Column()
+  // id_cuenta!: number;
 
-  //   @OneToMany(
-  //     () => CuentaEntity,
-  //     (movimiento) => movimiento.cuenta
-  //   )
-  //   cuenta!: MovimientoEntity[];
+  @ManyToOne(() => CuentaEntity, (cuenta) => cuenta.movimientos)
+  @JoinColumn({ name: "id_cuenta" })
+  cuenta!: CuentaEntity;
 }
