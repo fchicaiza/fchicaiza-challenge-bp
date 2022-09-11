@@ -1,33 +1,41 @@
 import { Request, Response } from "express";
 import { ClienteService } from "../services/cliente.service";
+import { HttpResponse } from "../../shared/response/http.response";
 
 export class ClienteController {
   constructor(
-    private readonly clienteService: ClienteService = new ClienteService()
+    private readonly clienteService: ClienteService = new ClienteService(),
+    private readonly httpResponse: HttpResponse = new HttpResponse()
   ) {}
   async getAllCustomers(req: Request, res: Response) {
     try {
       const data = await this.clienteService.findAllCustomers();
-      res.status(200).json(data);
+      if (data.length === 0) {
+        return this.httpResponse.NotFound(res, "No existe dato");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async getCustomerById(req: Request, res: Response) {
     const { id } = req.params;
     try {
       const data = await this.clienteService.findCustomerById(Number(id));
-      res.status(200).json(data);
+      if (!data) {
+        return this.httpResponse.NotFound(res, "No existe dato");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async createCustomer(req: Request, res: Response) {
     try {
       const data = await this.clienteService.createCustomer(req.body);
-      res.status(200).json(data);
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async updateCustomer(req: Request, res: Response) {
@@ -37,18 +45,24 @@ export class ClienteController {
         Number(id),
         req.body
       );
-      res.status(200).json(data);
+      if (!data.affected) {
+        return this.httpResponse.NotFound(res, "Hay un error en actualizar");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async deleteCustomer(req: Request, res: Response) {
     const { id } = req.params;
     try {
       const data = await this.clienteService.deleteCustomer(Number(id));
-      res.status(200).json(data);
+      if (!data.affected) {
+        return this.httpResponse.NotFound(res, "Hay un error en borrar");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
 }

@@ -1,51 +1,65 @@
 import { Request, Response } from "express";
 import { PersonaService } from "../services/persona.service";
+import { HttpResponse } from "../../shared/response/http.response";
 
 export class PersonaController {
   constructor(
-    private readonly personaService: PersonaService = new PersonaService()
+    private readonly personaService: PersonaService = new PersonaService(),
+    private readonly httpResponse: HttpResponse = new HttpResponse()
   ) {}
   async getAllPersons(req: Request, res: Response) {
     try {
       const data = await this.personaService.findAllPersons();
-      res.status(200).json(data);
+      if (data.length === 0) {
+        return this.httpResponse.NotFound(res, "No existe dato");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async getPersonById(req: Request, res: Response) {
     const { id } = req.params;
     try {
       const data = await this.personaService.getPersonById(Number(id));
-      res.status(200).json(data);
+      if (!data) {
+        return this.httpResponse.NotFound(res, "No existe dato");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async createPerson(req: Request, res: Response) {
     try {
       const data = await this.personaService.createPerson(req.body);
-      res.status(200).json(data);
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async updatePerson(req: Request, res: Response) {
     const { id } = req.params;
     try {
       const data = await this.personaService.updatePerson(Number(id), req.body);
-      res.status(200).json(data);
+      if (!data.affected) {
+        return this.httpResponse.NotFound(res, "Hay un error en actualizar");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
   async deletePerson(req: Request, res: Response) {
     const { id } = req.params;
     try {
       const data = await this.personaService.deletePerson(Number(id));
-      res.status(200).json(data);
+      if (!data.affected) {
+        return this.httpResponse.NotFound(res, "Hay un error en borrar");
+      }
+      return this.httpResponse.Ok(res, data);
     } catch (e) {
-      console.error(e);
+      return this.httpResponse.Error(res, e);
     }
   }
 }
