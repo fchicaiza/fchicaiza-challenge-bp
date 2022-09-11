@@ -10,7 +10,7 @@ export class CuentaService extends BaseService<CuentaEntity> {
   async findAllAccounts(): Promise<CuentaEntity[]> {
     return (await this.execRepository).find();
   }
-  async getAccountById(id_cuenta: number): Promise<CuentaEntity | null> {
+  async findAccountById(id_cuenta: number): Promise<CuentaEntity | null> {
     return (await this.execRepository).findOneBy({ id_cuenta });
   }
 

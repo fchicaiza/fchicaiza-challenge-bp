@@ -1,33 +1,29 @@
 import {
   Column,
   Entity,
-  PrimaryColumn,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToOne,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
-import { BaseEntity } from "../../config/base.entity";
 import { ClienteEntity } from "../../cliente/entities/cliente.entity";
-import { MovimientosEntity } from "../../movimientos/entities/movimientos.entity";
+import { BaseEntity } from "../../config/base.entity";
 
 @Entity({ name: "cuenta" })
 export class CuentaEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id_cuenta!: number;
   @Column()
-  numeroCuenta!: number;
+  numero_cuenta!: string;
   @Column()
-  tipoCuenta!: string;
+  tipo_cuenta!: string;
   @Column("decimal", { precision: 10, scale: 2 })
-  saldoInicial!: number;
+  saldo_inicial!: number;
   @Column("char")
-  estado!: number;
+  estado!: string;
+  @Column()
+  id_cliente!: number;
 
-  @ManyToOne(() => ClienteEntity, (cliente) => cliente.cuenta)
-  @JoinColumn({ name: "id_cliente" })
-  cliente!: ClienteEntity;
-
-  @OneToMany(() => MovimientosEntity, (movimientos) => movimientos.cuenta)
-  movimientos!: MovimientosEntity[];
+  // @ManyToOne(() => ClienteEntity, (cliente) => cliente.cuenta)
+  // @JoinColumn({ name: "id_cliente" })
+  // cliente!: ClienteEntity;
 }

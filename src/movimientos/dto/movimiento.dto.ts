@@ -1,17 +1,17 @@
 import { BaseDTO } from "../../config/base.dto";
 import { IsNotEmpty } from "class-validator";
 
-export class CuentaDTO extends BaseDTO {
+export class MovimientosDTO extends BaseDTO {
   @IsNotEmpty()
-  id_cuenta!: number;
+  id_movimiento!: number;
   @IsNotEmpty()
-  numero_cuenta!: string;
+  fecha!: string;
   @IsNotEmpty()
-  tipo_cuenta!: string;
+  tipo_movimiento!: string;
   @IsNotEmpty()
-  saldo_inicial!: number;
+  valor!: number;
   @IsNotEmpty()
-  estado!: string;
+  saldo!: number;
   @IsNotEmpty()
   id_cliente!: number;
 }

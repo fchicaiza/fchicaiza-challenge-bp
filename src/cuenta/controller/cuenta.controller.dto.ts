@@ -13,10 +13,10 @@ export class CuentaController {
       console.error(e);
     }
   }
-  async getAccountById(req: Request, res: Response) {
+  async getAccountsById(req: Request, res: Response) {
     const { id } = req.params;
     try {
-      const data = await this.cuentaService.getAccountById(Number(id));
+      const data = await this.cuentaService.findAccountById(Number(id));
       res.status(200).json(data);
     } catch (e) {
       console.error(e);

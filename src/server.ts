@@ -6,8 +6,8 @@ import { PersonaRouter } from "./persona/persona.router";
 import { ConfigServer } from "./config/config";
 import { DataSource } from "typeorm";
 import { ClienteRouter } from "./cliente/cliente.router";
-// import { CuentaRouter } from "./cuenta/cuenta.router";
-// import { MovimientoRouter } from "./movimientos/movimientos.router";
+import { CuentaRouter } from "./cuenta/cuenta.router";
+import { MovimientosRouter } from "./movimientos/movimientos.router";
 
 class ServerBootstrap extends ConfigServer {
   public app: express.Application = express();
@@ -28,8 +28,8 @@ class ServerBootstrap extends ConfigServer {
     return [
       new PersonaRouter().router,
       new ClienteRouter().router,
-      // new CuentaRouter().router,
-      // new MovimientoRouter().router,
+      new CuentaRouter().router,
+      new MovimientosRouter().router,
     ];
   }
 

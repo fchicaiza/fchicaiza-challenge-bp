@@ -1,5 +1,5 @@
 import { BaseRouter } from "../shared/router/router";
-import { CuentaController } from "./controller/cuenta.controller";
+import { CuentaController } from "./controller/cuenta.controller.dto";
 
 export class CuentaRouter extends BaseRouter<CuentaController> {
   constructor() {
@@ -12,7 +12,7 @@ export class CuentaRouter extends BaseRouter<CuentaController> {
       this.contoller.getAllAccounts(req, res)
     );
     this.router.get(endpoint + "buscarCuenta/:id", (req, res) =>
-      this.contoller.getAccountById(req, res)
+      this.contoller.getAccountsById(req, res)
     );
     this.router.post(endpoint + "crearCuenta", (req, res) =>
       this.contoller.createAccount(req, res)
